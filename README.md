@@ -74,32 +74,78 @@ Then, publish to a [local feed](https://docs.microsoft.com/en-us/nuget/hosting-p
 ## Getting Started
 
 ```csharp
-using System.Collections.Generic;
-using System.Diagnostics;
+using Newtonsoft.Json;
 using CNXT.API.Client.Api;
 using CNXT.API.Client.Client;
 using CNXT.API.Client.Model;
+using System;
+using System.Collections.Generic;
+using CNXT.API.Client.OAuth2;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Example
 {
     public class Example
     {
-        public static void Main()
-        {
+        private static OidcIdentityService oidcIdentityService;
 
-            Configuration.Default.BasePath = "http://localhost:8280/api";
-            var apiInstance = new AssetsApi(Configuration.Default);
-            var id = id_example;  // string | ID of the asset
+        private static AssetsApi assetsApi;
+        private static PatientsApi patientsApi;
+        private static SessionsApi sessionsApi;
+
+        private static Credentials credentials;
+
+        private static CancellationTokenSource tokenSource = new CancellationTokenSource();
+
+        private static TimeSpan timespan = new TimeSpan(0, 3, 0);
+
+        public static async Task RefreshToken()
+        {
+            var task = Task<string>.Run(async () =>  // <- marked async
+            {
+                while (true)
+                {
+                    if (DateTime.UtcNow.Subtract(credentials.AccessTokenExpiration.UtcDateTime) >= timespan)
+                    {
+                        credentials = await oidcIdentityService.RefreshToken(credentials.RefreshToken);
+
+                        assetsApi.Configuration.AccessToken = credentials.AccessToken;
+                        patientsApi.Configuration.AccessToken = credentials.AccessToken;
+                        sessionsApi.Configuration.AccessToken = credentials.AccessToken;
+                    }
+
+                    await Task.Delay(10000, tokenSource.Token); // <- await with cancellation
+                }
+            }, tokenSource.Token);
+        }
+
+        public static void Main(string[] args) => MainAsync().GetAwaiter().GetResult();
+
+        public static async Task MainAsync()
+        {
+			oidcIdentityService = new OidcIdentityService("hub", "http://127.0.0.1:5050", "http://localhost:5050", "openid offline_access", "https://sso.cnxt.rodenstock.com/auth/realms/cnxt");
+
+            credentials = await oidcIdentityService.Authenticate();
+
+            Configuration configuration = new Configuration();
+            configuration.BasePath = "https://hub.cnxt.rodenstock.com";
+            configuration.AccessToken = credentials.AccessToken;
+
+            await RefreshToken();
+
+            patientsApi = new PatientsApi(configuration);
 
             try
             {
-                // Retrieves available DNEye Scanner assets according to the defined asset ID.
-                DNEyeScannerAssetsResponse result = apiInstance.GetDNEyeScannerAssets(id);
-                Debug.WriteLine(result);
+				// Query the first 25 patients sorted by lastName (ascending)
+				PatientsResponse patientsResponse = patientsApi.GetPatients(25, null, new PatientFilter()
+				{
+				}, new List<string>() { "lastName" }, new List<string>() { "session", "latestSessionId", "latestSessionUpdate" });
             }
             catch (ApiException e)
             {
-                Debug.Print("Exception when calling AssetsApi.GetDNEyeScannerAssets: " + e.Message );
+                Debug.Print("Exception when calling PatientsApi.GetPatients: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
@@ -170,10 +216,5 @@ Class | Method | HTTP request | Description
 
 
 ## Documentation for Authorization
-
-- [OAuth2.Credentials](docs/Credentials.md)
-- [OAuth2.OidcClientExtensions](docs/OidcClientExtensions.md)
-- [OAuth2.OidcIdentityService](docs/OidcIdentityService.md)
-- [OAuth2.SystemBrowser](docs/SystemBrowser.md)
 
 All endpoints do not require authentication or authorization unless the remotely available CNXT-Hub (see https://hub.cnxt.rodenstock.com) version is used.
