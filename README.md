@@ -138,10 +138,10 @@ namespace Example
 
             try
             {
-				// Query the first 25 patients sorted by lastName (ascending)
-				PatientsResponse patientsResponse = patientsApi.GetPatients(25, null, new PatientFilter()
-				{
-				}, new List<string>() { "lastName" }, new List<string>() { "session", "latestSessionId", "latestSessionUpdate" });
+                // Query the first 25 patients sorted by lastName (ascending)
+                PatientsResponse patientsResponse = patientsApi.GetPatients(25, null, new PatientFilter()
+                {
+                }, new List<string>() { "lastName" }, new List<string>() { "session", "latestSessionId", "latestSessionUpdate" });
             }
             catch (ApiException e)
             {
