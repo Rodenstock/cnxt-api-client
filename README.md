@@ -124,7 +124,7 @@ namespace Example
 
         public static async Task MainAsync()
         {
-			oidcIdentityService = new OidcIdentityService("hub", "http://127.0.0.1:5050", "http://localhost:5050", "openid offline_access", "https://sso.cnxt.rodenstock.com/auth/realms/cnxt");
+            oidcIdentityService = new OidcIdentityService("hub", "http://127.0.0.1:5050", "http://localhost:5050", "openid offline_access", "https://sso.cnxt.rodenstock.com/auth/realms/cnxt");
 
             credentials = await oidcIdentityService.Authenticate();
 
