@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+CNXT®-Connector
+
+The CNXT<sup>®</sup>-Connector is developed by Rodenstock GmbH to integrate data from measurement devices such as DNEye<sup>®</sup> Scanner, Rodenstock Fundus Scanner, and ImpressionIST<sup>®</sup> into 3rd party applications as well as into several applications of Rodenstock such as WinFit, Rodenstock Consulting etc. If you have any feedback then please feel free to contact us via email. Copyright © Rodenstock GmbH 2020
+
+The version of the OpenAPI document: 1.0.5
+Contact: cnxt@rodenstock.com
+-->
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\NUnit.3.13.3\build\NUnit.props" Condition="Exists('..\..\packages\NUnit.3.13.3\build\NUnit.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{19F1DEBC-DE5E-4517-8062-F000CD499087}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Rodenstock.CNXT.API.Client.Test</RootNamespace>
+    <AssemblyName>CNXT.API.Client.Test</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="JsonSubTypes, Version=1.9.0.0, Culture=neutral, PublicKeyToken=ee75fc290dbc1176, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\JsonSubTypes.1.9.0\lib\net40\JsonSubTypes.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.13.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.13.3.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.3.13.3\lib\net40\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml" />
+    <Reference Include="RestSharp">
+      <HintPath Condition="Exists('$(SolutionDir)\packages')">$(SolutionDir)\packages\RestSharp.105.1.0\lib\net4\RestSharp.dll</HintPath>
+      <HintPath Condition="Exists('..\packages')">..\packages\RestSharp.105.1.0\lib\net4\RestSharp.dll</HintPath>
+      <HintPath Condition="Exists('..\..\packages')">..\..\packages\RestSharp.105.1.0\lib\net4\RestSharp.dll</HintPath>
+      <HintPath Condition="Exists('..\..\vendor')">..\..\vendor\RestSharp.105.1.0\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Api\AssetsApiTests.cs" />
+    <Compile Include="Api\PatientsApiTests.cs" />
+    <Compile Include="Api\SessionsApiTests.cs" />
+    <Compile Include="Client\JsonSubTypesTests.cs" />
+    <Compile Include="Model\AddressTests.cs" />
+    <Compile Include="Model\AssetsResponseLinksDneyescannerTests.cs" />
+    <Compile Include="Model\AssetsResponseLinksImpressionistTests.cs" />
+    <Compile Include="Model\AssetsResponseLinksTests.cs" />
+    <Compile Include="Model\AssetsResponseTests.cs" />
+    <Compile Include="Model\B2BOpticTests.cs" />
+    <Compile Include="Model\ContactTests.cs" />
+    <Compile Include="Model\DNEyeScannerAssetsResponseLinksTests.cs" />
+    <Compile Include="Model\DNEyeScannerAssetsResponseTests.cs" />
+    <Compile Include="Model\ImpressionISTAssetsResponseLinksTests.cs" />
+    <Compile Include="Model\ImpressionISTAssetsResponseTests.cs" />
+    <Compile Include="Model\PageInfoTests.cs" />
+    <Compile Include="Model\PaginationLinkNextTests.cs" />
+    <Compile Include="Model\PaginationLinkTests.cs" />
+    <Compile Include="Model\PatientFilterTests.cs" />
+    <Compile Include="Model\PatientInputTests.cs" />
+    <Compile Include="Model\PatientLinkPatientTests.cs" />
+    <Compile Include="Model\PatientLinkSelfTests.cs" />
+    <Compile Include="Model\PatientLinkSessionsInnerTests.cs" />
+    <Compile Include="Model\PatientLinkTests.cs" />
+    <Compile Include="Model\PatientResponseAllOfTests.cs" />
+    <Compile Include="Model\PatientResponseTests.cs" />
+    <Compile Include="Model\PatientsResponseTests.cs" />
+    <Compile Include="Model\PatientTests.cs" />
+    <Compile Include="Model\SessionFilterTests.cs" />
+    <Compile Include="Model\SessionInputTests.cs" />
+    <Compile Include="Model\SessionLinkB2bOpticTests.cs" />
+    <Compile Include="Model\SessionLinkPatientTests.cs" />
+    <Compile Include="Model\SessionLinkSessionTests.cs" />
+    <Compile Include="Model\SessionLinkTests.cs" />
+    <Compile Include="Model\SessionResponseAllOfTests.cs" />
+    <Compile Include="Model\SessionResponseTests.cs" />
+    <Compile Include="Model\SessionsResponseTests.cs" />
+    <Compile Include="Model\SessionStateTests.cs" />
+    <Compile Include="Model\SessionTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MsBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\CNXT.API.Client\CNXT.API.Client.csproj">
+      <Project>{da818353-0b62-4df6-91ed-006485aec6e6}</Project>
+      <Name>CNXT.Connector.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rodenstock.CNXT.Connector.Client\Rodenstock.CNXT.Connector.Client.csproj">
+      <Project>da818353-0b62-4df6-91ed-006485aec6e6</Project>
+      <Name>Rodenstock.CNXT.Connector.Client</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\NUnit.3.13.3\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\NUnit.3.13.3\build\NUnit.props'))" />
+  </Target>
+</Project>
