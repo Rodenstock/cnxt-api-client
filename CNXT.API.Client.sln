@@ -10,12 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CNXT.API.Client.ConsoleAppl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{13715352-75B3-48C2-8A60-5EE765418C1C}"
 	ProjectSection(SolutionItems) = preProject
-		build.bat = build.bat
-		build.sh = build.sh
-		cnxt-connector-openapi.json = cnxt-connector-openapi.json
-		cnxt-connector-openapi.yaml = cnxt-connector-openapi.yaml
-		git_push.sh = git_push.sh
-		mono_nunit_test.sh = mono_nunit_test.sh
+		cnxt-openapi.json = cnxt-openapi.json
+		cnxt-openapi.yaml = cnxt-openapi.yaml
 		openapi-generator-config-dotnet4.json = openapi-generator-config-dotnet4.json
 		README.md = README.md
 	EndProjectSection

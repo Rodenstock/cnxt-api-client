@@ -5,7 +5,6 @@ using CNXT.API.Client.Model;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-
 using CNXT.API.Client.OAuth2;
 using System.Threading.Tasks;
 using System.Threading;
@@ -56,7 +55,6 @@ namespace CNXT.API.Client.ConsoleApplication
 
             Configuration configuration = new Configuration();
             configuration.BasePath = "https://hub.cnxt.rodenstock.com";
-            //configuration.BasePath = "http://localhost:8280/api";
             configuration.AccessToken = credentials.AccessToken;
 
             await RefreshToken();
